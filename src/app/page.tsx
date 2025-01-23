@@ -23,6 +23,17 @@ export default function Home() {
     animationRef.current.x = Math.random() * window.innerWidth;
     animationRef.current.y = Math.random() * window.innerHeight;
 
+    // Initialize random diagonal movement
+    const minVelocity = 10;
+    const maxVelocity = 20;
+    const getRandomVelocity = () => {
+      const velocity = minVelocity + Math.random() * (maxVelocity - minVelocity);
+      return Math.random() > 0.5 ? velocity : -velocity;
+    };
+    
+    animationRef.current.dx = getRandomVelocity();
+    animationRef.current.dy = getRandomVelocity();
+
     const logo = logoRef.current;
     if (!logo) return;
 
@@ -34,12 +45,21 @@ export default function Home() {
       pos.x += pos.dx;
       pos.y += pos.dy;
 
-      // Bounce off edges
+      // Bounce off edges with minimum velocity
+      const minVelocity = 2;
       if (pos.x + logoRect.width > window.innerWidth || pos.x < 0) {
         pos.dx = -pos.dx;
+        // Ensure minimum velocity
+        if (Math.abs(pos.dx) < minVelocity) {
+          pos.dx = pos.dx > 0 ? minVelocity : -minVelocity;
+        }
       }
       if (pos.y + logoRect.height > window.innerHeight || pos.y < 0) {
         pos.dy = -pos.dy;
+        // Ensure minimum velocity
+        if (Math.abs(pos.dy) < minVelocity) {
+          pos.dy = pos.dy > 0 ? minVelocity : -minVelocity;
+        }
       }
 
       // Apply new position
