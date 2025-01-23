@@ -12,13 +12,17 @@ export default function Home() {
     dx: number;
     dy: number;
   }>({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
+    x: 0,
+    y: 0,
     dx: 3,
     dy: 2
   });
 
   useEffect(() => {
+    // Initialize random position on client-side
+    animationRef.current.x = Math.random() * window.innerWidth;
+    animationRef.current.y = Math.random() * window.innerHeight;
+
     const logo = logoRef.current;
     if (!logo) return;
 
