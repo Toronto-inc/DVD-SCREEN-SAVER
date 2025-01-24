@@ -19,13 +19,13 @@ export default function Home() {
   });
 
   useEffect(() => {
-    // Initialize random position on client-side
-    animationRef.current.x = Math.random() * window.innerWidth;
-    animationRef.current.y = Math.random() * window.innerHeight;
+    // Initialize position at center of screen
+    animationRef.current.x = (window.innerWidth - 200) / 2;  // 200 is logo width
+    animationRef.current.y = (window.innerHeight - 200) / 2; // 200 is logo height
 
     // Initialize random diagonal movement
-    const minVelocity = 10;
-    const maxVelocity = 20;
+    const minVelocity = 2;
+    const maxVelocity = 5;
     const getRandomVelocity = () => {
       const velocity = minVelocity + Math.random() * (maxVelocity - minVelocity);
       return Math.random() > 0.5 ? velocity : -velocity;
